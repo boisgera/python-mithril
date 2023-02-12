@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Python Mithril</title>
+  </head>
+  <script type="module">
+    import m from "https://cdn.skypack.dev/mithril";
+    window._mithril = m;
+  </script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>
+  <script type="text/javascript">
+    async function main() {
+      let pyodide = await loadPyodide();
+      let response = await fetch("main.py");
+      let src;
+      if (response.ok) {
+        src = await response.text();
+      } else {
+        alert("HTTP-Error: " + response.status);
+      }
+      pyodide.runPython(src);
+    }
+    main();
+  </script>
+  <body></body>
+</html>
